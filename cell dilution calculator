@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cell Dilution Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 15px;
+    }
+    .result {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Cell Dilution Calculator</h1>
+
+  <label>Current Concentration (cells/mL):
+    <input type="number" id="currentConc" step="any">
+  </label>
+  <label>Desired Concentration (cells/mL):
+    <input type="number" id="desiredConc" step="any">
+  </label>
+  <label>Final Volume Needed (mL):
+    <input type="number" id="finalVol" step="any">
+  </label>
+  <button onclick="calculateDilution()">Calculate Dilution</button>
+  <div class="result" id="dilutionResult"></div>
+
+  <script>
+    function calculateDilution() {
+      const currentConc = parseFloat(document.getElementById('currentConc').value);
+      const desiredConc = parseFloat(document.getElementById('desiredConc').value);
+      const finalVol = parseFloat(document.getElementById('finalVol').value);
+
+      if (currentConc && desiredConc && finalVol && currentConc > desiredConc) {
+        const volCells = (desiredConc * finalVol) / currentConc;
+        const volMedia = finalVol - volCells;
+        document.getElementById('dilutionResult').innerText = 
+          `Use ${volCells.toFixed(2)} mL of cells + ${volMedia.toFixed(2)} mL of media.`;
+      } else {
+        document.getElementById('dilutionResult').innerText = 
+          'Please check your input values (current > desired).';
+      }
+    }
+  </script>
+</body>
+</html>
